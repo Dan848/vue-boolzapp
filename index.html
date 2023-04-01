@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolzapp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="vh-100 overflow-hidden py-4">
+    <div id="app">
+        <!-- MAIN CONTAINER -->
+        <div class=" full-cont container-fluid container-md w-100 overflow-hidden">
+            <div class="row">
+                <!-- LEFT SIDE -->
+                <div class="col-4 left-side container-fluid overflow-hidden p-0">
+                    <!-- PROFILE INFO -->
+                    <div class="user-info row p-2">
+                        <div class="col d-flex align-items-center justify-content-start">
+                            <img class="icon-size rounded-circle me-2" src="./img/avatar_io.jpg" alt="me">
+                            <div class="fw-medium">Sofia</div>
+                        </div>
+                        <div class="col-auto d-flex align-items-center justify-content-end">
+                            <i class="mx-2 opacity-50 fs-5 fs- fa-solid fa-circle-notch"></i>
+                            <i class="mx-2 opacity-50 fs-5 fa-solid fa-message"></i>
+                            <i class="mx-2 opacity-50 fs-5 fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                    <!-- NOTIFICATION -->
+                    <div class="notifications d-flex align-items-center p-3">
+                        <div class="icon-size bell rounded-circle d-flex align-items-center justify-content-center me-2"><i class="fs-5 fa-solid fa-bell-slash" style="color: #8edafc;"></i>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="fw-medium small">Ricevi notifiche di nuovi messaggi</div>
+                            <div class="small text-decoration-underline opacity-75">Attiva notifiche desktop</div>
+                        </div>
+                    </div>
+                    <!-- SEARCH BAR -->
+                    <div class="contact-search p-2 d-flex">
+                        <div class="py-1 px-3 bg-white">
+                            <i class="opacity-50 fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <input class="w-100 border-0 px-2" type="text" placeholder="Cerca o inizia una nuova chat">
+                    </div>
+                    <!-- CONTACT LIST -->
+                    <ul class=" contact-box-list bg-white overflow-y-auto list-unstyled mb-0">
+                        <li class="d-flex align-items-center p-3" v-for="(contact, index) in contacts" :id="contact.id" :key="contact.id" :class="(contId +1 === contact.id) ? 'contact-active' : '' ">
+                            <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
+                            <div class="w-100">
+                                <div class="d-flex justify-content-between">
+                                    <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">ora</div>
+                                </div>
+                                <div class="small opacity-50">Ultimo messaggio inviato</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+<!-- HALF -->
+                <!-- RIGHT SIDE -->
+                <div class="col right-side p-0">
+                    <!-- CONTACT INFO -->
+                    <div class="user-info row p-2">
+                        <div class="col d-flex align-items-center justify-content-start">
+                            <img class="icon-size rounded-circle me-2" src="./img/avatar_1.jpg" alt="me">
+                            <div class="d-flex flex-column justify-content-center">
+                                <div class="fw-medium">Michele</div>
+                                <div class="small opacity-75">Ultimo accesso oggi alle 12:00</div>
+                            </div>
+                        </div>
+                        <!-- ICON -->
+                        <div class="col-auto d-flex align-items-center justify-content-end">
+                            <i class="mx-2 opacity-50 fs-5 fa-solid fa-magnifying-glass"></i>
+                            <i class="mx-2 opacity-50 fs-5 fa-solid fa-paperclip"></i>
+                            <i class="mx-2 opacity-50 fs-5 fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                    <!-- CHAT BOX -->
+                    <div class="chat-box overflow-y-auto p-5">
+
+                        <div class="d-flex my-2" v-for="mess in contacts[contIndex].messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'">
+                            <div class="p-2 rounded-2" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
+                            {{mess.message}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- INPUT MESSAGE -->
+                    <div class="chat-input w-100 p-2 d-flex overflow-auto">
+                        <div class="icon-size d-flex justify-content-center align-items-center mx-2">
+                            <i class="fs-5 opacity-50 fa-regular fa-face-smile"></i>
+                        </div>
+                        <input class="w-100 rounded-2 border-0 px-3" type="text" placeholder="Scrivi un messaggio">
+                        <div class="icon-size d-flex justify-content-center align-items-center mx-2">
+                            <i class="fs-5 opacity-50 fa-solid fa-microphone"></i>
+                        </div>
+                    </div>                
+                </div>
+            <!-- END HERE -->
+            </div>
+        </div>
+    </div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="./js/script.js"></script>
+</body>
+</html>

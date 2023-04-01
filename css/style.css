@@ -1,0 +1,81 @@
+::-webkit-scrollbar {
+    width: 6px;
+  }
+::-webkit-scrollbar-thumb {
+    background: #cecece;
+    border: 6px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #a8a8a8;
+}
+
+/* GENERAL */
+body {
+    background: linear-gradient(
+        #009688 0%,
+        #009688 130px,
+        #d9dbd5 130px,
+        #d9dbd5 100%)
+}
+
+.full-cont,.left-side,.right-side {
+    height: calc(100vh - 48px);
+}
+
+.icon-size {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+}
+
+.user-info {
+    background-color: #eaeaea;
+    height: 66px;
+}
+
+/* LEFT SIDE */
+.notifications {
+    height: 82px;
+    background-color: #8edafc;
+}
+
+.bell {
+    background-color: #f2fbff;
+}
+
+.contact-search{
+    background-color: #fafafa;
+    height: 48px;
+}
+
+.contact-box-list {
+    height: calc(100% - 196px)
+}
+
+li {
+    border-top: 1px solid #e9ebeb !important;
+}
+
+li:hover{
+    background-color: #e9ebeb;
+    cursor: pointer;
+}
+
+.contact-active {
+    background-color: #e9ebeb;
+}
+
+/* RIGTH SIDE */
+.chat-box {
+    background-image: url("../img/mine.jpg");
+    height: calc(100% - 132px);
+}
+
+.sended-msg {
+    background-color: #d5f9ba;
+}
+
+.chat-input {
+    background-color: #f3eeea;
+    height: 66px;
+}
