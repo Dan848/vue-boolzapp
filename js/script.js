@@ -174,13 +174,14 @@ createApp({
                     ],
                 }
             ],
-            contIndex: 0,
             contId: 1
         }
     },
     methods: {
         makeActive(event){
-            console.log(event.target.id)
+            this.contId = event.currentTarget.id;
+            console.log("click");
+            console.log(this.contId);
         }
     },
     mounted(){}
