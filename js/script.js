@@ -8,7 +8,7 @@ createApp({
                     id:1,
                     name: 'Michele',
                     avatar: './img/avatar_1.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -31,7 +31,7 @@ createApp({
                     id:2,
                     name: 'Fabio',
                     avatar: './img/avatar_2.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '20/03/2020 16:30:00',
@@ -54,7 +54,7 @@ createApp({
                     id:3,
                     name: 'Samuele',
                     avatar: './img/avatar_3.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '28/03/2020 10:10:40',
@@ -77,7 +77,7 @@ createApp({
                     id:4,
                     name: 'Alessandro B.',
                     avatar: './img/avatar_4.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -95,7 +95,7 @@ createApp({
                     id:5,
                     name: 'Alessandro L.',
                     avatar: './img/avatar_5.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -113,7 +113,7 @@ createApp({
                     id:6,
                     name: 'Claudia',
                     avatar: './img/avatar_6.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -136,7 +136,7 @@ createApp({
                     id:7,
                     name: 'Federico',
                     avatar: './img/avatar_7.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -154,7 +154,7 @@ createApp({
                     id:8,
                     name: 'Davide',
                     avatar: './img/avatar_8.jpg',
-                    visible: true,
+                    state: "offline",
                     messages: [
                         {
                             date: '10/01/2020 15:30:55',
@@ -192,9 +192,7 @@ createApp({
                 filteredContacts: '',
                 filteredChats: ''
             },
-            messToSendText: "",
-            writingStatus: false,
-            onlineStatus: false
+            messToSendText: ""
         }
     },
     methods: {
@@ -226,11 +224,11 @@ createApp({
                 return this.formatDateDay(date)
             }
         },
-        stateUser(date){
-            if (this.writingStatus){
+        stateUser(cont, date){
+            if (cont.state === "writing"){
                 return "Sta scrivendo..."
             }
-            else if (this.onlineStatus) {
+            else if (cont.state === "online") {
                 return "Online"
             }
             else {
@@ -269,22 +267,26 @@ createApp({
                     }
                 );
             }
+            //Move up the chat on the list
             this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
+            //Clear input box
             this.messToSendText = "";
-            this.writingStatus = true,
+            //Writing status true
+            this.contacts[this.findIndexToId(this.contacts, this.contId)].state = "writing";
+            //Taking current id so it doesn't change if we click on another contact
+            const actualId = this.contId;
             setTimeout(() =>{
-                this.writingStatus = false;
-                this.onlineStatus = true
-                this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.push(
+                this.contacts[this.findIndexToId(this.contacts, actualId)].state = "online";
+                this.contacts[this.findIndexToId(this.contacts, actualId)].messages.push(
                     {
                         date: this.getDate(),
                         message: this.answers[this.getRndInteger(1,10)],
                         status: "received"
                     },
+                    
                 );
-                
             },3000)
-            setTimeout(() => this.onlineStatus = false, 3000);
+            setTimeout(() => this.contacts[this.findIndexToId(this.contacts, actualId)].state = "offline", 6000);
         }
     },
     mounted(){}
