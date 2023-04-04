@@ -174,21 +174,38 @@ createApp({
                     ],
                 }
             ],
+            answers: [
+                "Non sono un mago, ma ci provo", 
+                "Non sono un robot, ma ci sto lavorando", 
+                "Non mi chiedere di fare miracoli, al massimo posso fare un trucco di magia", 
+                "Ho l'impressione che tu stia cercando un supereroe, ma sono già impegnato stendendo il bucato", 
+                "Aspetta un attimo, devo chiedere al mio consulente spirituale", 
+                "Mi piacerebbe aiutarti, ma sto ancora cercando di capire il significato della vita", 
+                "Non posso darti una risposta definitiva, ma posso darti una risposta che sembra definitiva", 
+                "Non ho la risposta giusta, ma ho un'infinità di battute", 
+                "Non so come rispondere, ma ho una teoria su come gli unicorni hanno perso la loro coda", 
+                "Non ho una risposta, ma ho un meme che potrebbe farti sorridere"
+            ],
             contId: 1,
             searchText: "",
             filteredAll: {
                 filteredContacts: '',
                 filteredChats: ''
             },
-            messToSendText: ""
+            messToSendText: "",
+            writingStatus: false,
+            onlineStatus: false
         }
     },
     methods: {
+        getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) ) + min;
+        },
         getDate (){
             return new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
         },
         formatDateHour(date){
-            return date.slice(11, 19)
+            return date.slice(11, 17)
         },
         formatDateDay(date){
             return date.slice(0, 10)
@@ -207,6 +224,17 @@ createApp({
             }
             else {
                 return this.formatDateDay(date)
+            }
+        },
+        stateUser(date){
+            if (this.writingStatus){
+                return "Sta scrivendo..."
+            }
+            else if (this.onlineStatus) {
+                return "Online"
+            }
+            else {
+                return `Ultimo accesso ${this.lastMessageDate(date)}` 
             }
         },
         moveUpChat(arr, indexMoving){
@@ -243,6 +271,20 @@ createApp({
             }
             this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
             this.messToSendText = "";
+            this.writingStatus = true,
+            setTimeout(() =>{
+                this.writingStatus = false;
+                this.onlineStatus = true
+                this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.push(
+                    {
+                        date: this.getDate(),
+                        message: this.answers[this.getRndInteger(1,10)],
+                        status: "received"
+                    },
+                );
+                
+            },3000)
+            setTimeout(() => this.onlineStatus = false, 3000);
         }
     },
     mounted(){}

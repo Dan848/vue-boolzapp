@@ -95,7 +95,9 @@
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
                                     <div class="fw-medium">{{contact.name}}</div>
-                                    <div class="small opacity-75">Ultimo accesso {{lastAccessText}} {{lastMessageDate(contact.messages[contact.messages.length - 1].date)}}</div>
+                                    <!-- <div class="small opacity-75">Ultimo accesso {{lastAccessText}} {{lastMessageDate(contact.messages[contact.messages.length - 1].date)}}</div> -->
+
+                                    <div class="small opacity-75">{{stateUser(contact.messages[contact.messages.length - 1].date)}}</div>
                                 </div>
                             </div>
                         </template>
@@ -135,7 +137,7 @@
             </div>
         </div>
     </div>
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
 <script src="./js/script.js"></script>
 </body>
 </html>
