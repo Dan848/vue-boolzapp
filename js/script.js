@@ -186,13 +186,14 @@ createApp({
                 "Non so come rispondere, ma ho una teoria su come gli unicorni hanno perso la loro coda", 
                 "Non ho una risposta, ma ho un meme che potrebbe farti sorridere"
             ],
-            contId: 1,
+            contId: "",
             searchText: "",
             filteredAll: {
                 filteredContacts: '',
                 filteredChats: ''
             },
-            messToSendText: ""
+            messToSendText: "",
+            mobile: window.innerWidth < 576 ? true : false,
         }
     },
     methods: {
