@@ -1,3 +1,17 @@
+/* GENERAL */
+
+/*Colors*/
+:root {
+    --dc-darker-gray: #eaeaea;
+    --dc-lighter-gray: #f4f4f4;
+    --dc-lighter-green: #d5f9ba;
+}
+
+.bg-darker-gray{
+    background-color: var(--dc-darker-gray);
+}
+
+/*Scroll Bar*/
 ::-webkit-scrollbar {
     width: 6px;
   }
@@ -9,7 +23,6 @@
     background: #a8a8a8;
 }
 
-/* GENERAL */
 body {
     background: linear-gradient(
         #009688 0%,
@@ -29,7 +42,6 @@ body {
 }
 
 .user-info {
-    background-color: #eaeaea;
     height: 66px;
 }
 
@@ -44,7 +56,6 @@ body {
 }
 
 .contact-search{
-    background-color: #fafafa;
     height: 48px;
 }
 
@@ -53,16 +64,12 @@ body {
 }
 
 li {
-    border-top: 1px solid #e9ebeb !important;
+    border-top: 1px solid var(--dc-darker-gray) !important;
 }
 
 li:hover{
-    background-color: #e9ebeb;
+    background-color: var(--dc-lighter-gray);
     cursor: pointer;
-}
-
-.contact-active {
-    background-color: #e9ebeb;
 }
 
 /* RIGTH SIDE */
@@ -72,7 +79,7 @@ li:hover{
 }
 
 .sended-msg {
-    background-color: #d5f9ba;
+    background-color: var(--dc-lighter-green);
 }
 
 .chat-input {

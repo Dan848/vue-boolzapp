@@ -174,14 +174,24 @@ createApp({
                     ],
                 }
             ],
-            contId: 1
+            contId: 1,
+            searchText: "",
+            filteredAll: {
+                filteredContacts: '',
+                filteredChats: ''
+            }
         }
     },
     methods: {
-        makeActive(event){
-            this.contId = event.currentTarget.id;
-            console.log("click");
-            console.log(this.contId);
+        makeActive(id){
+            this.contId = id
+        },
+        searchFor(){
+
+            this.filteredAll.filteredContacts = this.contacts.filter((contact) => contact.name.toLowerCase().includes(this.searchText.trim().toLowerCase()))
+            this.filteredAll.filteredChats = this.contacts.filter((contact) => contact.messages.some((mess) => mess.message.toLowerCase().includes(this.searchText.trim().toLowerCase())))
+
+            return this.filteredAll;
         }
     },
     mounted(){}

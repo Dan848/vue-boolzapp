@@ -12,15 +12,15 @@
 <body class="vh-100 overflow-hidden py-4">
     <div id="app">
         <!-- MAIN CONTAINER -->
-        <div class=" full-cont container-fluid container-md w-100 overflow-hidden">
+        <div class=" full-cont container-fluid w-100 overflow-hidden">
             <div class="row">
                 <!-- LEFT SIDE -->
                 <div class="col-4 left-side container-fluid overflow-hidden p-0">
                     <!-- PROFILE INFO -->
-                    <div class="user-info row p-2">
+                    <div class="user-info bg-darker-gray row p-2">
                         <div class="col d-flex align-items-center justify-content-start">
                             <img class="icon-size rounded-circle me-2" src="./img/avatar_io.jpg" alt="me">
-                            <div class="fw-medium">Sofia</div>
+                            <div class="fw-medium">Daniele</div>
                         </div>
                         <div class="col-auto d-flex align-items-center justify-content-end">
                             <i class="mx-2 opacity-50 fs-5 fs- fa-solid fa-circle-notch"></i>
@@ -39,32 +39,50 @@
                         </div>
                     </div>
                     <!-- SEARCH BAR -->
-                    <div class="contact-search p-2 d-flex">
-                        <div class="py-1 px-3 bg-white">
+                    <div class="contact-search bg-white p-2 d-flex">
+                        <div class="bg-darker-gray rounded-start-2 py-1 px-3">
                             <i class="opacity-50 fa-solid fa-magnifying-glass"></i>
                         </div>
-                        <input class="w-100 border-0 px-2" type="text" placeholder="Cerca o inizia una nuova chat">
+                        <input @input="searchFor" v-model="searchText" class="bg-darker-gray w-100 border-0 px-2 rounded-end-2" type="text" placeholder="Cerca o inizia una nuova chat">
                     </div>
-                    <!-- CONTACT LIST -->
-                    <ul class=" contact-box-list bg-white overflow-y-auto list-unstyled mb-0">
-                        <li @click="makeActive" class="d-flex align-items-center p-3" v-for="(contact, index) in contacts" :id="contact.id" :class="{'contact-active': contId == contact.id}" :key="contact.id">
-                            <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
-                            <div class="w-100">
-                                <div class="d-flex justify-content-between">
-                                    <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">ora</div>
+                    <!-- CONTACT BOX-->
+                    <div class="contact-box-list bg-white overflow-y-auto ">
+                        <!-- CONTACT LIST -->
+                        <ul class="list-unstyled mb-0">
+                            <li @click="makeActive(contact.id)" class="d-flex align-items-center p-3" v-for="contact in (filteredAll.filteredContacts === '' ? contacts : filteredAll.filteredContacts)" :class="{'bg-darker-gray': contId == contact.id}" :key="contact.id">
+                                <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
+                                <div class="w-100">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].date}}</div>
+                                    </div>
+                                    <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].message}}</div>
                                 </div>
-                                <div class="small opacity-50">Ultimo messaggio inviato</div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
+                        <!-- FILTERED CHAT LIST -->
+                        <template v-if="filteredAll.filteredChats != '' && searchText.trim() != ''">
+                            <h5 class="p-3">Chat</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li @click="makeActive(contact.id)" class="d-flex align-items-center p-3" v-for="contact in filteredAll.filteredChats" :class="{'bg-darker-gray': contId == contact.id}" :key="contact.id">
+                                    <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
+                                    <div class="w-100">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].date}}</div>
+                                        </div>
+                                        <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].message}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </template>
+                    </div>
                 </div>
 <!-- HALF -->
                 <!-- RIGHT SIDE -->
                 <div class="col right-side p-0">
                     <!-- CONTACT INFO -->
-                    <div class="user-info row p-2">
+                    <div class="user-info bg-darker-gray row p-2">
                         <template v-for="contact in contacts">
-                            <div v-if="contact.id == contId" class="col d-flex align-items-center justify-content-start">
+                            <div v-if="contact.id == contId" class="col d-flex align-items-center justify-content-start">                           
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
                                     <div class="fw-medium">{{contact.name}}</div>
@@ -83,7 +101,7 @@
                     <div class="chat-box overflow-y-auto p-5">
                         <template v-for="(contact, index) in contacts">
                             <template v-if="contact.id == contId">
-                                <div class="d-flex my-2" v-for="mess in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'">
+                                <div class="d-flex my-2" v-for="(mess, index) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'">
                                     <div class="p-2 rounded-2" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
                                     {{mess.message}}
                                     </div>
