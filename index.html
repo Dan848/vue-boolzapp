@@ -15,7 +15,7 @@
         <div class=" full-cont container-fluid w-100 overflow-hidden">
             <div class="row">
                 <!-- LEFT SIDE -->
-                <div class="col-4 left-side container-fluid overflow-hidden p-0">
+                <div class="col-12 col-md-4 left-side container-fluid overflow-hidden p-0">
                     <!-- PROFILE INFO -->
                     <div class="user-info bg-darker-gray row p-2">
                         <div class="col d-flex align-items-center justify-content-start">
@@ -49,16 +49,22 @@
                         <input @input="searchFor" v-model="searchText" class="bg-darker-gray w-100 border-0 px-2 rounded-end-2" type="text" placeholder="Cerca o inizia una nuova chat">
                     </div>
                     <!-- CONTACT BOX-->
-                    <div class="contact-box-list bg-white overflow-y-auto ">
+                    <div class="contact-box-list bg-white overflow-y-auto overflow-x-hidden">
                         <!-- CONTACT LIST -->
                         <ul class="list-unstyled mb-0">
+                            <!-- Contact -->
                             <li @click="makeActive(contact.id)" class="d-flex align-items-center p-3" v-for="contact in (filteredAll.filteredContacts === '' ? contacts : filteredAll.filteredContacts)" :class="{'bg-darker-gray': contId == contact.id}" :key="contact.id">
+                                <!-- Avatar -->
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="w-100">
                                     <div class="d-flex justify-content-between">
-                                        <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">{{lastMessage(contact.messages[contact.messages.length - 1].date)}}</div>
+                                        <!-- Name -->
+                                        <div class="fw-medium">{{contact.name}}</div>
+                                        <!-- Last Message Date -->
+                                        <div class="small opacity-50">{{lastMessageDate(contact.messages[contact.messages.length - 1].date)}}</div>
                                     </div>
-                                    <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].message}}</div>
+                                    <!-- Last Message -->
+                                    <div class="small opacity-50 text-break">{{lastMessageText(contact.messages[contact.messages.length - 1].message)}}</div>
                                 </div>
                             </li>
                         </ul>
@@ -89,7 +95,7 @@
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
                                     <div class="fw-medium">{{contact.name}}</div>
-                                    <div class="small opacity-75">Ultimo accesso {{lastAccessText}} {{lastMessage(contact.messages[contact.messages.length - 1].date)}}</div>
+                                    <div class="small opacity-75">Ultimo accesso {{lastAccessText}} {{lastMessageDate(contact.messages[contact.messages.length - 1].date)}}</div>
                                 </div>
                             </div>
                         </template>
@@ -105,7 +111,7 @@
                         <template v-for="(contact, index) in contacts">
                             <template v-if="contact.id == contId">
                                 <div class="d-flex my-2" v-for="(mess, index) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'">
-                                    <div class="p-2 rounded-2" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
+                                    <div class="p-2 rounded-2 text-break" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
                                     {{mess.message}}
                                     </div>
                                 </div>

@@ -193,13 +193,25 @@ createApp({
         formatDateDay(date){
             return date.slice(0, 10)
         },
-        lastMessage (date){
+        lastMessageText(message) {
+            if (message.length > 40){
+                return `${message.substring(0,40)}...`;
+            }
+            else {
+                return message
+            }
+        },
+        lastMessageDate (date){
             if (this.formatDateDay(date) === this.formatDateDay(this.getDate())){
                 return this.formatDateHour(date)
             }
             else {
                 return this.formatDateDay(date)
             }
+        },
+        moveUpChat(arr, indexMoving){
+            let contactMoving = arr.splice(indexMoving, 1)[0];
+            arr.splice(0, 0, contactMoving);
         },
         findIndexToId (arr, id){
             return arr.findIndex((item) => item.id == id);
@@ -229,6 +241,7 @@ createApp({
                     }
                 );
             }
+            this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
             this.messToSendText = "";
         }
     },
