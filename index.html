@@ -111,8 +111,9 @@
                         <template v-for="(contact, index) in contacts">
                             <template v-if="contact.id == contId">
                                 <div class="d-flex my-2" v-for="(mess, index) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'">
-                                    <div class="p-2 rounded-2 text-break" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
+                                    <div class="pt-2 ps-2 pb-2 pe-5 rounded-2 text-break position-relative" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
                                     {{mess.message}}
+                                        <div class="position-absolute date-msg small opacity-75">{{formatDateHour(mess.date)}}</div>
                                     </div>
                                 </div>
                             </template>
