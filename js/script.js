@@ -179,19 +179,57 @@ createApp({
             filteredAll: {
                 filteredContacts: '',
                 filteredChats: ''
-            }
+            },
+            messToSendText: ""
         }
     },
     methods: {
+        getDate (){
+            return new Date().toLocaleString('it-IT', { timeZone: 'Europe/Rome', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        },
+        formatDateHour(date){
+            return date.slice(11, 19)
+        },
+        formatDateDay(date){
+            return date.slice(0, 10)
+        },
+        lastMessage (date){
+            if (this.formatDateDay(date) === this.formatDateDay(this.getDate())){
+                return this.formatDateHour(date)
+            }
+            else {
+                return this.formatDateDay(date)
+            }
+        },
+        findIndexToId (arr, id){
+            return arr.findIndex((item) => item.id == id);
+        },
+        deleteSearchText(){
+            this.searchText = "";
+            this.filteredAll.filteredContacts = "";
+            this.filteredAll.filteredChats = "";
+        },
         makeActive(id){
             this.contId = id
+            this.messToSendText = ""
         },
         searchFor(){
-
             this.filteredAll.filteredContacts = this.contacts.filter((contact) => contact.name.toLowerCase().includes(this.searchText.trim().toLowerCase()))
             this.filteredAll.filteredChats = this.contacts.filter((contact) => contact.messages.some((mess) => mess.message.toLowerCase().includes(this.searchText.trim().toLowerCase())))
-
             return this.filteredAll;
+        },
+        sendMessage(){
+            if (this.messToSendText.trim()){
+                //Push Message Object into Messages Array based on Id selected                        
+                this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.push(
+                    {
+                        date: this.getDate(),
+                        message: this.messToSendText.trim(),
+                        status: "sent"
+                    }
+                );
+            }
+            this.messToSendText = "";
         }
     },
     mounted(){}

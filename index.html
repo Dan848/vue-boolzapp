@@ -40,8 +40,11 @@
                     </div>
                     <!-- SEARCH BAR -->
                     <div class="contact-search bg-white p-2 d-flex">
-                        <div class="bg-darker-gray rounded-start-2 py-1 px-3">
+                        <div v-if="searchText.trim() ===''" class="bg-darker-gray rounded-start-2 py-1 px-3">
                             <i class="opacity-50 fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div @click="deleteSearchText" v-else class="cursor-pointer bg-darker-gray rounded-start-2 py-1 px-3">
+                            <i class="fs-5 opacity-50 fa-solid fa-xmark"></i>
                         </div>
                         <input @input="searchFor" v-model="searchText" class="bg-darker-gray w-100 border-0 px-2 rounded-end-2" type="text" placeholder="Cerca o inizia una nuova chat">
                     </div>
@@ -53,7 +56,7 @@
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="w-100">
                                     <div class="d-flex justify-content-between">
-                                        <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].date}}</div>
+                                        <div class="fw-medium">{{contact.name}}</div> <div class="small opacity-50">{{lastMessage(contact.messages[contact.messages.length - 1].date)}}</div>
                                     </div>
                                     <div class="small opacity-50">{{contact.messages[contact.messages.length - 1].message}}</div>
                                 </div>
@@ -86,7 +89,7 @@
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
                                     <div class="fw-medium">{{contact.name}}</div>
-                                    <div class="small opacity-75">Ultimo accesso oggi alle 12:00</div>
+                                    <div class="small opacity-75">Ultimo accesso {{lastAccessText}} {{lastMessage(contact.messages[contact.messages.length - 1].date)}}</div>
                                 </div>
                             </div>
                         </template>
@@ -114,10 +117,12 @@
                         <div class="icon-size d-flex justify-content-center align-items-center mx-2">
                             <i class="fs-5 opacity-50 fa-regular fa-face-smile"></i>
                         </div>
-                        <input class="w-100 rounded-2 border-0 px-3" type="text" placeholder="Scrivi un messaggio">
-                        <div class="icon-size d-flex justify-content-center align-items-center mx-2">
-                            <i class="fs-5 opacity-50 fa-solid fa-microphone"></i>
+                        <input @keyup.enter="sendMessage" v-model="messToSendText" class="w-100 rounded-2 border-0 px-3" type="text" placeholder="Scrivi un messaggio">
+                        <div @click="sendMessage" class="icon-size d-flex justify-content-center align-items-center mx-2">
+                            <i v-if="messToSendText.trim() === ''" class="fs-5 opacity-50 fa-solid fa-microphone"></i>
+                            <i v-else class="fs-5 opacity-50 fa-solid fa-paper-plane"></i>
                         </div>
+
                     </div>                
                 </div>
             <!-- END HERE -->

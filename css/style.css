@@ -41,6 +41,10 @@ body {
     height: 50px;
 }
 
+.cursor-pointer:hover, .icon-size:hover{
+    cursor: pointer;
+}
+
 .user-info {
     height: 66px;
 }
