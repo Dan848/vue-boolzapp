@@ -361,11 +361,13 @@ createApp({
         },
         deleteAllMsg(){
             this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.length = 0;
+            this.showDeleteMenu = false;
         },
         deleteSingleContact(arr, id){
             this.deleteSingleItem(arr, id);
             this.contactsIdCounter --;
             this.logoSection = true;
+            this.showDeleteMenu = false;
         }
     },
     mounted(){

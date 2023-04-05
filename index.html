@@ -137,10 +137,10 @@
                                         <!-- Message Dropdown Arrow Click -->                                        
                                         <i @click="dropdownShow(mess.id)" class="fs-5 cursor-pointer p-1 position-absolute my-toggle" :class="(msgId === mess.id) ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down'"></i>
                                         <!-- Message Dropdown Menu -->
-                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0" :class="(msgId === mess.id) ? 'd-block' : 'd-none'">
-                                            <li class="border-0 text-center">
-                                                <button class="d-block w-100 rounded-top-1 msg-dropdown-button fw-medium text-bg-secondary">Info</button>
-                                                <button @click="deleteSingleItem(contact.messages, msgId)" class="d-block w-100 rounded-bottom-1 msg-dropdown-button fw-medium text-bg-danger">Delete</button>
+                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 m-0" :class="(msgId === mess.id) ? 'd-block' : 'd-none'">
+                                            <li class="border-0">
+                                                <button class="d-block rounded-top-1 msg-dropdown-button fw-medium text-bg-secondary">Info</button>
+                                                <button @click="deleteSingleItem(contact.messages, msgId)" class="d-block rounded-bottom-1 msg-dropdown-button fw-medium text-bg-danger">Delete</button>
                                             </li>
                                         </ul>   
                                     </div>
