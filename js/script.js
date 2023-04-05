@@ -214,14 +214,15 @@ createApp({
             searchText: "",
             messToSendText: "",
             msgIdCounter: 4,
-            contactsIdCounter: 8,
+            contactsIdCounter: 9,
             filteredAll: {
                 filteredContacts: '',
                 filteredChats: ''
             },
             logoSection: true,
+            showEmoji: false,
+            showDeleteMenu: false,
             mobile: window.innerWidth < 576 ? true : false,
-            showEmoji: false
         }
     },
     methods: {
@@ -363,6 +364,7 @@ createApp({
         },
         deleteSingleContact(arr, id){
             this.deleteSingleItem(arr, id);
+            this.contactsIdCounter --;
             this.logoSection = true;
         }
     },

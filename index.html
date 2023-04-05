@@ -111,9 +111,11 @@
                         <div class="col-auto d-flex align-items-center justify-content-end position-relative">
                             <i class="d-none d-md-inline-block d-inline mx-2 opacity-50 fs-5 fa-solid fa-magnifying-glass"></i>
                             <i class="d-none d-md-inline-block mx-2 opacity-50 fs-5 fa-solid fa-paperclip"></i>
-                            <i class="mx-2 opacity-50 fs-5 fa-solid fa-ellipsis-vertical"></i>
-                            <!-- Message Dropdown Menu -->
-                            <ul class="list-unstyled position-absolute contact-dropdown-menu rounded-2 w-100 m-0">
+                            <!-- Button for Contact Dropdown Menu -->
+                            <div @click="showDeleteMenu=!showDeleteMenu" class="p-2 cursor-pointer d-flex align-items-center">
+                            <i class="cursor-pointer mx-2 opacity-50 fs-5 fa-solid fa-ellipsis-vertical"></i></div>
+                            <!-- Contact Dropdown Menu -->
+                            <ul class="list-unstyled position-absolute contact-dropdown-menu rounded-2 w-100 m-0" :class="showDeleteMenu ? 'd-block': 'd-none'">
                                 <li class="border-0 text-center">
                                     <button @click="deleteSingleContact(contacts, contId)" class="d-block rounded-top-1 contact-dropdown-button fw-medium text-bg-danger">Delete this Contact</button>
                                     <button @click="deleteAllMsg" class="d-block rounded-bottom-1 contact-dropdown-button fw-medium text-bg-danger">Delete All Messages</button>
