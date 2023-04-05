@@ -91,13 +91,13 @@
 <!-- HALF -->
                 <!-- RIGHT SIDE -->
                 <div class="col right-side p-0">
-                    <div v-if="(contId === '')" class="d-flex flex-column justify-content-center align-items-center right-side bg-darker-gray">
+                    <div v-if="(logoSection)" class="d-flex flex-column justify-content-center align-items-center right-side bg-darker-gray">
                         <div class="logo p-4 mb-3"><img class="img-fluid" src="./img/boolzapp-logo.png" alt="Boolzap-Logo"></div>
                         <div class="fw-medium col-8 text-center">Invia e ricevi messaggi senza mantenere il telefono connesso a Internet e senza mantenere le conversazioni perchè non avevo voglia di fare un local storage. <br>
                         Dai clicca su una chat...</div>
                     </div>
                     <!-- CONTACT INFO -->
-                    <div v-if="(contId != '')" class="user-info bg-darker-gray row p-2">
+                    <div v-if="(!logoSection)" class="user-info bg-darker-gray row p-2">
                         <template v-for="contact in contacts" :key="contact.id">
                             <div v-if="contact.id == contId" class="col d-flex align-items-center justify-content-start">                           
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
@@ -108,17 +108,23 @@
                             </div>
                         </template>  
                         <!-- ICON -->
-                        <div class="col-auto d-flex align-items-center justify-content-end">
+                        <div class="col-auto d-flex align-items-center justify-content-end position-relative">
                             <i class="d-none d-md-inline-block d-inline mx-2 opacity-50 fs-5 fa-solid fa-magnifying-glass"></i>
                             <i class="d-none d-md-inline-block mx-2 opacity-50 fs-5 fa-solid fa-paperclip"></i>
                             <i class="mx-2 opacity-50 fs-5 fa-solid fa-ellipsis-vertical"></i>
+                            <!-- Message Dropdown Menu -->
+                            <ul class="list-unstyled position-absolute contact-dropdown-menu rounded-2 w-100 m-0">
+                                <li class="border-0 text-center">
+                                    <button @click="deleteSingleContact(contacts, contId)" class="d-block rounded-top-1 contact-dropdown-button fw-medium text-bg-danger">Delete this Contact</button>
+                                    <button @click="deleteAllMsg" class="d-block rounded-bottom-1 contact-dropdown-button fw-medium text-bg-danger">Delete All Messages</button>
+                                </li>
+                            </ul>                               
                         </div>
                     </div>
                     <!-- CHAT BOX -->
                     <div :class="contId != '' && 'chat-box'" class="overflow-y-auto p-5">
                         <template v-for="(contact, index) in contacts" :key="contact.id">
                             <template v-if="contact.id == contId && contact.messages != ''">
-
                                 <!-- Message Row -->
                                 <div class="d-flex my-2" ref="msg" v-for="mess in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="mess.id">
                                     <!-- Message Box With Bg -->
@@ -126,14 +132,13 @@
                                     {{mess.message}}
                                         <!-- Message Date -->
                                         <div class="position-absolute date-msg small opacity-75">{{formatDateHour(mess.date)}}</div>                                        
-                                        <!-- Dropdown Arrow Click -->                                        
-                                        <i @click="dropdownShow(mess.id)" class="fs-5 cursor-pointer p-1 position-absolute my-toggle" :class="(contMsg === mess.id) ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down'"></i>
-                                        <!-- Dropdown Menu -->
-                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0" :class="(contMsg === mess.id) ? 'd-block' : 'd-none'">
-                                            <li class="border-0 text-center
-                                            ">
+                                        <!-- Message Dropdown Arrow Click -->                                        
+                                        <i @click="dropdownShow(mess.id)" class="fs-5 cursor-pointer p-1 position-absolute my-toggle" :class="(msgId === mess.id) ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down'"></i>
+                                        <!-- Message Dropdown Menu -->
+                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0" :class="(msgId === mess.id) ? 'd-block' : 'd-none'">
+                                            <li class="border-0 text-center">
                                                 <button class="d-block w-100 rounded-top-1 msg-dropdown-button fw-medium text-bg-secondary">Info</button>
-                                                <button @click="deleteSingleMsg(contact.messages)" class="d-block w-100 rounded-bottom-1 msg-dropdown-button fw-medium text-bg-danger">Delete</button>
+                                                <button @click="deleteSingleItem(contact.messages, msgId)" class="d-block w-100 rounded-bottom-1 msg-dropdown-button fw-medium text-bg-danger">Delete</button>
                                             </li>
                                         </ul>   
                                     </div>

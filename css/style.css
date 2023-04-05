@@ -91,6 +91,17 @@ li:hover{
     background-color: white;
 }
 
+.contact-dropdown-menu{
+    top: 50px;
+    left: -110px;
+    z-index: 666;
+}
+
+.contact-dropdown-button{
+    width: 140px;
+    padding: 0.2rem;
+}
+
 .date-msg {
     right: 10px;
     bottom: 0px;

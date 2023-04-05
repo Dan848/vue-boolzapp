@@ -210,7 +210,7 @@ createApp({
                 "Non ho una risposta, ma ho un meme che potrebbe farti sorridere"
             ],
             contId: "",
-            contMsg: "",
+            msgId: "",
             searchText: "",
             messToSendText: "",
             msgIdCounter: 4,
@@ -219,6 +219,7 @@ createApp({
                 filteredContacts: '',
                 filteredChats: ''
             },
+            logoSection: true,
             mobile: window.innerWidth < 576 ? true : false,
             showEmoji: false
         }
@@ -279,9 +280,10 @@ createApp({
             this.filteredAll.filteredChats = "";
         },
         makeActive(id){
-            this.contId = id
-            this.messToSendText = ""
-            this.contMsg = ""
+            this.contId = id;
+            this.messToSendText = "";
+            this.msgId = "";
+            this.logoSection = false;
         },
         searchFor(){
             //Filter based on contact name
@@ -341,21 +343,27 @@ createApp({
             }
         },
         dropdownShow(id){
-            if(this.contMsg === id){
-                this.contMsg = "";
+            if(this.msgId === id){
+                this.msgId = "";
             }
             else {
-                this.contMsg = id
+                this.msgId = id
             }
         },
-        deleteSingleMsg(arr){
+        deleteSingleItem(arr, id){
             if(arr.length === 1){
                 arr.length = 0;
             }
             else{
-                arr.splice(this.findIndexToId(arr, this.contMsg), 1);
+                arr.splice(this.findIndexToId(arr, id), 1);
             }
-
+        },
+        deleteAllMsg(){
+            this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.length = 0;
+        },
+        deleteSingleContact(arr, id){
+            this.deleteSingleItem(arr, id);
+            this.logoSection = true;
         }
     },
     mounted(){
