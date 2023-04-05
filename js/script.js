@@ -267,7 +267,7 @@ createApp({
                         status: "sent"
                     }
                 );
-            }
+            
             //Move up the chat on the list
             this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
             //Clear input box
@@ -291,6 +291,7 @@ createApp({
             },3000)
             //Change Status to Offline            
             setTimeout(() => this.contacts[this.findIndexToId(this.contacts, actualId)].state = "offline", 6000);
+            }
         }
     },
     mounted(){}

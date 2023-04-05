@@ -95,7 +95,7 @@
                     </div>
                     <!-- CONTACT INFO -->
                     <div v-if="(contId != '')" class="user-info bg-darker-gray row p-2">
-                        <template v-for="contact in contacts">
+                        <template v-for="contact in contacts" :key="contact.id">
                             <div v-if="contact.id == contId" class="col d-flex align-items-center justify-content-start">                           
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
@@ -113,9 +113,9 @@
                     </div>
                     <!-- CHAT BOX -->
                     <div :class="contId != '' && 'chat-box'" class="overflow-y-auto p-5">
-                        <template v-for="(contact, index) in contacts">
+                        <template v-for="(contact, index) in contacts" :key="contact.id">
                             <template v-if="contact.id == contId">
-                                <div class="d-flex my-2" v-for="(mess, index) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'">
+                                <div class="d-flex my-2" v-for="(mess, index) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="index">
                                     <div class="pt-2 ps-2 pb-2 pe-5 rounded-2 text-break position-relative" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
                                     {{mess.message}}
                                         <div class="position-absolute date-msg small opacity-75">{{formatDateHour(mess.date)}}</div>
