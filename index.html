@@ -63,10 +63,11 @@
                                         <!-- Name -->
                                         <div class="fw-medium">{{contact.name}}</div>
                                         <!-- Last Message Date -->
-                                        <div class="small opacity-50">{{lastMessageDate(contact.messages[contact.messages.length - 1].date)}}</div>
+                                        <div v-if="contact.messages.length != 0" class="small opacity-50">{{lastMessageDate(contact.messages[contact.messages.length - 1].date)}}</div>
                                     </div>
                                     <!-- Last Message -->
-                                    <div class="small opacity-50 text-break">{{lastMessageText(contact.messages[contact.messages.length - 1].message)}}</div>
+                                    <div v-if="contact.messages != 0" class="small opacity-50 text-break">{{lastMessageText(contact.messages[contact.messages.length - 1].message)}}</div>
+                                    <div v-else class="small opacity-50 text-break">Non ci sono messaggi in questa chat</div>
                                 </div>
                             </li>
                         </ul>
@@ -102,7 +103,7 @@
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
                                     <div class="fw-medium">{{contact.name}}</div>
-                                    <div class="small opacity-75">{{stateUser(contact, contact.messages[contact.messages.length - 1].date)}}</div>
+                                    <div v-if="contact.messages.length != 0" class="small opacity-75">{{stateUser(contact, contact.messages[contact.messages.length - 1].date)}}</div>
                                 </div>
                             </div>
                         </template>  
@@ -116,7 +117,7 @@
                     <!-- CHAT BOX -->
                     <div :class="contId != '' && 'chat-box'" class="overflow-y-auto p-5">
                         <template v-for="(contact, index) in contacts" :key="contact.id">
-                            <template v-if="contact.id == contId">
+                            <template v-if="contact.id == contId && contact.messages != ''">
 
                                 <!-- Message Row -->
                                 <div class="d-flex my-2" ref="msg" v-for="mess in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="mess.id">

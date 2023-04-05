@@ -349,7 +349,13 @@ createApp({
             }
         },
         deleteSingleMsg(arr){
-            arr.splice(this.findIndexToId(arr, this.contMsg), 1)
+            if(arr.length === 1){
+                arr.length = 0;
+            }
+            else{
+                arr.splice(this.findIndexToId(arr, this.contMsg), 1);
+            }
+
         }
     },
     mounted(){
