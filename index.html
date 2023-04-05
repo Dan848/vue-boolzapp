@@ -119,20 +119,20 @@
                             <template v-if="contact.id == contId">
 
                                 <!-- Message Row -->
-                                <div class="d-flex my-2" ref="msg" v-for="(mess) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="mess.id">
+                                <div class="d-flex my-2" ref="msg" v-for="mess in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="mess.id">
                                     <!-- Message Box With Bg -->
                                     <div :id="mess.id" class="single-msg pt-2 ps-2 pb-2 pe-5 rounded-2 text-break position-relative" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
                                     {{mess.message}}
                                         <!-- Message Date -->
                                         <div class="position-absolute date-msg small opacity-75">{{formatDateHour(mess.date)}}</div>                                        
                                         <!-- Dropdown Arrow Click -->                                        
-                                        <i @click="dropdownShow('dropDown-' + mess.id)" class="fs-5 cursor-pointer p-1 position-absolute my-toggle" :class="(contMsg === 'dropDown-' + mess.id) ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down'"></i>
+                                        <i @click="dropdownShow(mess.id)" class="fs-5 cursor-pointer p-1 position-absolute my-toggle" :class="(contMsg === mess.id) ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down'"></i>
                                         <!-- Dropdown Menu -->
-                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0" :class="(contMsg === 'dropDown-' + mess.id) ? 'd-block' : 'd-none'">
+                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0" :class="(contMsg === mess.id) ? 'd-block' : 'd-none'">
                                             <li class="border-0 text-center
                                             ">
                                                 <button class="d-block w-100 rounded-top-1 msg-dropdown-button fw-medium text-bg-secondary">Info</button>
-                                                <button class="d-block w-100 rounded-bottom-1 msg-dropdown-button fw-medium text-bg-danger">Delete</button>
+                                                <button @click="deleteSingleMsg(contact.messages)" class="d-block w-100 rounded-bottom-1 msg-dropdown-button fw-medium text-bg-danger">Delete</button>
                                             </li>
                                         </ul>   
                                     </div>

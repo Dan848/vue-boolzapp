@@ -284,8 +284,11 @@ createApp({
             this.contMsg = ""
         },
         searchFor(){
+            //Filter based on contact name
             this.filteredAll.filteredContacts = this.contacts.filter((contact) => contact.name.toLowerCase().includes(this.searchText.trim().toLowerCase()))
+            //Filter based on message
             this.filteredAll.filteredChats = this.contacts.filter((contact) => contact.messages.some((mess) => mess.message.toLowerCase().includes(this.searchText.trim().toLowerCase())))
+            //Both array filtered are contained in this object
             return this.filteredAll;
         },
         scrollMsgs() {
@@ -306,35 +309,35 @@ createApp({
                         message: this.messToSendText.trim(),
                         status: "sent"
                     }
-                );
-            this.msgIdCounter++;    
-            this.scrollMsgs();
-            //Move up the chat on the list
-            this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
-            //Clear input box
-            this.messToSendText = "";
-            //Change Status to Writing
-            this.contacts[this.findIndexToId(this.contacts, this.contId)].state = "writing";
-            //Taking current id so it doesn't change if we click on another contact
-            const actualId = this.contId;
-            setTimeout(() =>{
-                //Change Status to Online                
-                this.contacts[this.findIndexToId(this.contacts, actualId)].state = "online";
-                //Push answer back
-                this.contacts[this.findIndexToId(this.contacts, actualId)].messages.push(
-                    {
-                        id: "msg-" + actualId + "-" + this.msgIdCounter,
-                        date: this.getDate(),
-                        message: this.answers[this.getRndInteger(0,9)],
-                        status: "received"
-                    },
-                    
-                );
-                this.msgIdCounter++; 
+                    );
+                this.msgIdCounter++;    
                 this.scrollMsgs();
-            },3000)
-            //Change Status to Offline            
-            setTimeout(() => this.contacts[this.findIndexToId(this.contacts, actualId)].state = "offline", 6000);
+                //Move up the chat on the list
+                this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
+                //Clear input box
+                this.messToSendText = "";
+                //Change Status to Writing
+                this.contacts[this.findIndexToId(this.contacts, this.contId)].state = "writing";
+                //Taking current id so it doesn't change if we click on another contact
+                const actualId = this.contId;
+                setTimeout(() =>{
+                    //Change Status to Online                
+                    this.contacts[this.findIndexToId(this.contacts, actualId)].state = "online";
+                    //Push answer back
+                    this.contacts[this.findIndexToId(this.contacts, actualId)].messages.push(
+                        {
+                            id: "msg-" + actualId + "-" + this.msgIdCounter,
+                            date: this.getDate(),
+                            message: this.answers[this.getRndInteger(0,9)],
+                            status: "received"
+                        },
+                        
+                    );
+                    this.msgIdCounter++; 
+                    this.scrollMsgs();
+                },3000)
+                //Change Status to Offline            
+                setTimeout(() => this.contacts[this.findIndexToId(this.contacts, actualId)].state = "offline", 6000);
             }
         },
         dropdownShow(id){
@@ -344,9 +347,11 @@ createApp({
             else {
                 this.contMsg = id
             }
+        },
+        deleteSingleMsg(arr){
+            arr.splice(this.findIndexToId(arr, this.contMsg), 1)
         }
     },
     mounted(){
-        console.log(this.contacts[0].messages[0].id)
     }
 }).component('Picker', Picker).mount('#app');
