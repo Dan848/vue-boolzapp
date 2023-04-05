@@ -1,4 +1,6 @@
-const { createApp } = Vue
+import Picker from './emoji-picker.js';
+
+const { createApp } = Vue;
 
 createApp({
     data(){
@@ -11,6 +13,7 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: 1+1,
                             date: '10/01/2020  15:30:55',
                             message: 'Hai portato a spasso il cane?',
                             status: 'sent'
@@ -194,9 +197,13 @@ createApp({
             },
             messToSendText: "",
             mobile: window.innerWidth < 576 ? true : false,
+            showEmoji: false
         }
     },
     methods: {
+        onSelectEmoji(emoji) {
+            this.messToSendText += emoji.i;
+        },
         getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min + 1) ) + min;
         },
@@ -257,8 +264,16 @@ createApp({
             this.filteredAll.filteredChats = this.contacts.filter((contact) => contact.messages.some((mess) => mess.message.toLowerCase().includes(this.searchText.trim().toLowerCase())))
             return this.filteredAll;
         },
+        scrollMsgs() {
+            this.$nextTick(() => {
+                this.$refs.msg[this.$refs.msg.length - 1].scrollIntoView({
+                    behavior: "smooth",
+                });
+            }); 
+        },
         sendMessage(){
             if (this.messToSendText.trim()){
+                this.showEmoji = false
                 //Push Message Object into Messages Array based on Id selected                        
                 this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.push(
                     {
@@ -267,7 +282,7 @@ createApp({
                         status: "sent"
                     }
                 );
-            
+            this.scrollMsgs();
             //Move up the chat on the list
             this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
             //Clear input box
@@ -283,16 +298,20 @@ createApp({
                 this.contacts[this.findIndexToId(this.contacts, actualId)].messages.push(
                     {
                         date: this.getDate(),
-                        message: this.answers[this.getRndInteger(1,10)],
+                        message: this.answers[this.getRndInteger(0,9)],
                         status: "received"
                     },
                     
                 );
+                this.scrollMsgs();
             },3000)
             //Change Status to Offline            
             setTimeout(() => this.contacts[this.findIndexToId(this.contacts, actualId)].state = "offline", 6000);
             }
+        },
+        dropdownShow(){
+            console.log(this.$refs.msg)
         }
     },
     mounted(){}
-}).mount("#app")
+}).component('Picker', Picker).mount('#app');

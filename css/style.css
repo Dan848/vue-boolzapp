@@ -87,12 +87,38 @@ li:hover{
 }
 
 .right-empty {
+    z-index: 1000;
     background-color: white;
 }
 
 .date-msg {
     right: 10px;
     bottom: 0px;
+}
+
+.fa-angle-down.position-absolute{
+    top: 0px;
+    right: 10px;
+    z-index: 555;
+}
+
+.msg-dropdown-menu{
+    top: 20px;
+    left: 0;
+    border: 0;
+    padding: 0;
+    margin: 0px;
+    z-index: 444;
+}
+
+.msg-dropdown-button{
+    padding: 0;
+    margin: 0px;
+    border: 0;
+}
+
+.msg-dropdown-button:hover{
+    background-color: var(--dc-lighter-gray);
 }
 
 .sended-msg {
@@ -102,6 +128,13 @@ li:hover{
 .chat-input {
     background-color: #f3eeea;
     height: 66px;
+}
+
+.my-emoji{
+    z-index: 999;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
 }
 
 @media screen and (min-width: 576px) {
