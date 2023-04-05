@@ -365,6 +365,8 @@ createApp({
         },
         deleteSingleContact(arr, id){
             this.deleteSingleItem(arr, id);
+            this.deleteSingleItem(this.filteredAll.filteredContacts, id);
+            this.deleteSingleItem(this.filteredAll.filteredChats, id);
             this.contactsIdCounter --;
             this.logoSection = true;
             this.showDeleteMenu = false;
