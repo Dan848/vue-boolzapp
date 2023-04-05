@@ -96,10 +96,16 @@ li:hover{
     bottom: 0px;
 }
 
-.fa-angle-down.position-absolute{
+.single-msg:hover .my-toggle {
+    opacity: 1;
+}
+
+.my-toggle{
     top: 0px;
     right: 10px;
     z-index: 555;
+    opacity: 0;
+    transition: 0.5ms;
 }
 
 .msg-dropdown-menu{

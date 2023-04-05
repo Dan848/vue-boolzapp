@@ -117,12 +117,18 @@
                     <div :class="contId != '' && 'chat-box'" class="overflow-y-auto p-5">
                         <template v-for="(contact, index) in contacts" :key="contact.id">
                             <template v-if="contact.id == contId">
-                                <div class="d-flex my-2" ref="msg" v-for="(mess, index) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="index">
-                                    <div class="pt-2 ps-2 pb-2 pe-5 rounded-2 text-break position-relative" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
+
+                                <!-- Message Row -->
+                                <div class="d-flex my-2" ref="msg" v-for="(mess) in contact.messages" :class="(mess.status === 'received') ? 'justify-content-start' : 'justify-content-end'" :key="mess.id">
+                                    <!-- Message Box With Bg -->
+                                    <div :id="mess.id" class="single-msg pt-2 ps-2 pb-2 pe-5 rounded-2 text-break position-relative" :class="(mess.status === 'received') ? 'bg-white' : 'sended-msg'">
                                     {{mess.message}}
-                                        <i @click="dropdownShow" class="fs-5 cursor-pointer p-1 fa-solid fa-angle-down position-absolute"></i>
-                                        <div class="position-absolute date-msg small opacity-75">{{formatDateHour(mess.date)}}</div>
-                                        <ul class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0">
+                                        <!-- Message Date -->
+                                        <div class="position-absolute date-msg small opacity-75">{{formatDateHour(mess.date)}}</div>                                        
+                                        <!-- Dropdown Arrow Click -->                                        
+                                        <i @click="dropdownShow('dropDown-' + mess.id)" class="fs-5 cursor-pointer p-1 position-absolute my-toggle" :class="(contMsg === 'dropDown-' + mess.id) ? 'fa-solid fa-angle-up' : 'fa-solid fa-angle-down'"></i>
+                                        <!-- Dropdown Menu -->
+                                        <ul :id="'dropDown-' + mess.id" class="list-unstyled position-absolute msg-dropdown-menu rounded-2 w-100 m-0" :class="(contMsg === 'dropDown-' + mess.id) ? 'd-block' : 'd-none'">
                                             <li class="border-0 text-center
                                             ">
                                                 <button class="d-block w-100 rounded-top-1 msg-dropdown-button fw-medium text-bg-secondary">Info</button>
@@ -147,7 +153,6 @@
                             <i v-if="messToSendText.trim() === ''" class="fs-5 opacity-50 fa-solid fa-microphone"></i>
                             <i v-else class="fs-5 opacity-50 fa-solid fa-paper-plane"></i>
                         </div>
-
                     </div>                
                 </div>
             <!-- END HERE -->

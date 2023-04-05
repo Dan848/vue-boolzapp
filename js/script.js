@@ -13,17 +13,19 @@ createApp({
                     state: "offline",
                     messages: [
                         {
-                            id: 1+1,
+                            id: "msg-" + 1 + "-" + 1,
                             date: '10/01/2020  15:30:55',
                             message: 'Hai portato a spasso il cane?',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 1 + "-" + 2,
                             date: '10/01/2020  15:50:00',
                             message: 'Ricordati di stendere i panni',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 1 + "-" + 3,
                             date: '10/01/2020  16:15:22',
                             message: 'Tutto fatto!',
                             status: 'received'
@@ -37,16 +39,19 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 2 + "-" + 1,
                             date: '20/03/2020  16:30:00',
                             message: 'Ciao come stai?',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 2 + "-" + 2,
                             date: '20/03/2020  16:30:55',
                             message: 'Bene grazie! Stasera ci vediamo?',
                             status: 'received'
                         },
                         {
+                            id: "msg-" + 2 + "-" + 3,
                             date: '20/03/2020  16:35:00',
                             message: 'Mi piacerebbe ma devo andare a fare la spesa.',
                             status: 'sent'
@@ -60,16 +65,19 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 3 + "-" + 1,
                             date: '28/03/2020  10:10:40',
                             message: 'La Marianna va in campagna',
                             status: 'received'
                         },
                         {
+                            id: "msg-" + 3 + "-" + 2,
                             date: '28/03/2020  10:20:10',
                             message: 'Sicuro di non aver sbagliato chat?',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 3 + "-" + 3,
                             date: '28/03/2020  16:15:22',
                             message: 'Ah scusa!',
                             status: 'received'
@@ -83,11 +91,13 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 4 + "-" + 1,
                             date: '10/01/2020  15:30:55',
                             message: 'Lo sai che ha aperto una nuova pizzeria?',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 4 + "-" + 2,
                             date: '10/01/2020  15:50:00',
                             message: 'Si, ma preferirei andare al cinema',
                             status: 'received'
@@ -101,11 +111,13 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 5 + "-" + 1,
                             date: '10/01/2020  15:30:55',
                             message: 'Ricordati di chiamare la nonna',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 5 + "-" + 2,
                             date: '10/01/2020  15:50:00',
                             message: 'Va bene, stasera la sento',
                             status: 'received'
@@ -119,16 +131,19 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 6 + "-" + 1,
                             date: '10/01/2020  15:30:55',
                             message: 'Ciao Claudia, hai novità?',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 6 + "-" + 2,
                             date: '10/01/2020  15:50:00',
                             message: 'Non ancora',
                             status: 'received'
                         },
                         {
+                            id: "msg-" + 6 + "-" + 3,
                             date: '10/01/2020  15:51:00',
                             message: 'Nessuna nuova, buona nuova',
                             status: 'sent'
@@ -142,11 +157,13 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 7 + "-" + 1,
                             date: '10/01/2020  15:30:55',
                             message: 'Fai gli auguri a Martina che è il suo compleanno!',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 7 + "-" + 2,
                             date: '10/01/2020  15:50:00',
                             message: 'Grazie per avermelo ricordato, le scrivo subito!',
                             status: 'received'
@@ -160,16 +177,19 @@ createApp({
                     state: "offline",
                     messages: [
                         {
+                            id: "msg-" + 8 + "-" + 1,
                             date: '10/01/2020  15:30:55',
                             message: 'Ciao, andiamo a mangiare la pizza stasera?',
                             status: 'received'
                         },
                         {
+                            id: "msg-" + 8 + "-" + 2,
                             date: '10/01/2020  15:50:00',
                             message: 'No, l\'ho già mangiata ieri, ordiniamo sushi!',
                             status: 'sent'
                         },
                         {
+                            id: "msg-" + 8 + "-" + 3,
                             date: '10/01/2020  15:51:00',
                             message: 'OK!!',
                             status: 'received'
@@ -190,12 +210,15 @@ createApp({
                 "Non ho una risposta, ma ho un meme che potrebbe farti sorridere"
             ],
             contId: "",
+            contMsg: "",
             searchText: "",
+            messToSendText: "",
+            msgIdCounter: 4,
+            contactsIdCounter: 8,
             filteredAll: {
                 filteredContacts: '',
                 filteredChats: ''
             },
-            messToSendText: "",
             mobile: window.innerWidth < 576 ? true : false,
             showEmoji: false
         }
@@ -258,6 +281,7 @@ createApp({
         makeActive(id){
             this.contId = id
             this.messToSendText = ""
+            this.contMsg = ""
         },
         searchFor(){
             this.filteredAll.filteredContacts = this.contacts.filter((contact) => contact.name.toLowerCase().includes(this.searchText.trim().toLowerCase()))
@@ -277,11 +301,13 @@ createApp({
                 //Push Message Object into Messages Array based on Id selected                        
                 this.contacts[this.findIndexToId(this.contacts, this.contId)].messages.push(
                     {
+                        id: "msg-" + this.contId + "-" + this.msgIdCounter,
                         date: this.getDate(),
                         message: this.messToSendText.trim(),
                         status: "sent"
                     }
                 );
+            this.msgIdCounter++;    
             this.scrollMsgs();
             //Move up the chat on the list
             this.moveUpChat(this.contacts, this.findIndexToId(this.contacts, this.contId))
@@ -297,21 +323,30 @@ createApp({
                 //Push answer back
                 this.contacts[this.findIndexToId(this.contacts, actualId)].messages.push(
                     {
+                        id: "msg-" + actualId + "-" + this.msgIdCounter,
                         date: this.getDate(),
                         message: this.answers[this.getRndInteger(0,9)],
                         status: "received"
                     },
                     
                 );
+                this.msgIdCounter++; 
                 this.scrollMsgs();
             },3000)
             //Change Status to Offline            
             setTimeout(() => this.contacts[this.findIndexToId(this.contacts, actualId)].state = "offline", 6000);
             }
         },
-        dropdownShow(){
-            console.log(this.$refs.msg)
+        dropdownShow(id){
+            if(this.contMsg === id){
+                this.contMsg = "";
+            }
+            else {
+                this.contMsg = id
+            }
         }
     },
-    mounted(){}
+    mounted(){
+        console.log(this.contacts[0].messages[0].id)
+    }
 }).component('Picker', Picker).mount('#app');
