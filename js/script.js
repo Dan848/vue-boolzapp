@@ -369,12 +369,13 @@ createApp({
             this.showDeleteMenu = false;
         },
         deleteSingleContact(arr, id){
+            this.showDeleteMenu = false;
+            this.logoSection = true;
+            this.mainOpen = false;
             this.deleteSingleItem(arr, id);
             this.deleteSingleItem(this.filteredAll.filteredContacts, id);
             this.deleteSingleItem(this.filteredAll.filteredChats, id);
             this.contactsIdCounter --;
-            this.logoSection = true;
-            this.showDeleteMenu = false;
         },
         onResize() {
             this.mobile = window.innerWidth < 576 ? true : false;
