@@ -13,6 +13,11 @@
 </head>
 <body class="vh-100 overflow-hidden py-4">
     <div id="app">
+        <!-- SPLASH PAGE ON START -->
+        <div v-if="(splashPage)" class="position-absolute d-flex flex-column justify-content-center align-items-center full-cont">
+            <div class="logo p-4 mb-3"><img class="img-fluid" src="./img/boolzapp-logo.png" alt="Boolzap-Logo"></div>
+            <h3 class="fw-medium col-8 text-center">Leader nel settore di Palle e Zappe... ah e messaggistica</h3>
+        </div>
         <!-- MAIN CONTAINER -->
         <div class=" full-cont container-xxl w-100 overflow-hidden">
             <div class="row">

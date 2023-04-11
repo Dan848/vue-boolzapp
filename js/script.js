@@ -223,7 +223,8 @@ createApp({
             showEmoji: false,
             showDeleteMenu: false,
             mobile: window.innerWidth < 576 ? true : false,
-            mainOpen: false
+            mainOpen: false,
+            splashPage: true
         }
     },
     methods: {
@@ -384,6 +385,7 @@ createApp({
         console.log(!this.mainOpen),
         console.log(this.mobile && !this.mainOpen)
         window.addEventListener("resize", this.onResize);
+        setTimeout(() => this.splashPage = false, 3000);
       },
       destroyed() {
         window.removeEventListener("resize", this.onResize);

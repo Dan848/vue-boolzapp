@@ -31,6 +31,16 @@ body {
         #d9dbd5 100%)
 }
 
+.full-cont.position-absolute{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    height: 100vh;
+    background-color: #d9dbd5;
+}
+
 .full-cont,.left-side,.right-side,.right-empty {
     height: calc(100vh - 48px);
 }
@@ -84,11 +94,6 @@ li:hover{
 .chat-box {
     background-image: url("../img/mine.jpg");
     height: calc(100% - 132px);
-}
-
-.right-empty {
-    z-index: 1000;
-    background-color: white;
 }
 
 .contact-dropdown-menu{
