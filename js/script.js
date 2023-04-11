@@ -223,6 +223,7 @@ createApp({
             showEmoji: false,
             showDeleteMenu: false,
             mobile: window.innerWidth < 576 ? true : false,
+            mainOpen: false
         }
     },
     methods: {
@@ -285,6 +286,9 @@ createApp({
             this.messToSendText = "";
             this.msgId = "";
             this.logoSection = false;
+            if (this.mobile){
+                this.mainOpen = true;
+            }
         },
         searchFor(){
             //Filter based on contact name
@@ -370,8 +374,19 @@ createApp({
             this.contactsIdCounter --;
             this.logoSection = true;
             this.showDeleteMenu = false;
-        }
+        },
+        onResize() {
+            this.mobile = window.innerWidth < 576 ? true : false;
+          },
     },
-    mounted(){
-    }
+    mounted() {
+        console.log(this.mobile),
+        console.log(!this.mainOpen),
+        console.log(this.mobile && !this.mainOpen)
+        window.addEventListener("resize", this.onResize);
+      },
+      destroyed() {
+        window.removeEventListener("resize", this.onResize);
+      },
+
 }).component('Picker', Picker).mount('#app');

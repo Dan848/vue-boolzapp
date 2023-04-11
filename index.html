@@ -17,7 +17,7 @@
         <div class=" full-cont container-xxl w-100 overflow-hidden">
             <div class="row">
                 <!-- LEFT SIDE -->
-                <div class="col-12 col-md-4 left-side container-fluid overflow-hidden p-0">
+                <div class="col-12 col-md-4 left-side container-fluid overflow-hidden p-0" :class="(mobile && mainOpen && 'd-none')">
                     <!-- PROFILE INFO -->
                     <div class="user-info bg-darker-gray row p-2">
                         <div class="col d-flex align-items-center justify-content-start">
@@ -98,8 +98,14 @@
                     </div>
                     <!-- CONTACT INFO -->
                     <div v-if="(!logoSection)" class="user-info bg-darker-gray row p-2">
+                        
                         <template v-for="contact in contacts" :key="contact.id">
-                            <div v-if="contact.id == contId" class="col d-flex align-items-center justify-content-start">                           
+                            <div v-if="contact.id == contId" class="col d-flex align-items-center justify-content-start">
+                                <!-- Back Arrow Mobile -->
+                                <div v-if="mobile" @click="mainOpen = false" class="p-2 cursor-pointer d-flex align-items-center justify-content-center me-2">
+                                    <i class="opacity-50 fa-solid fa-left-long fs-5"></i>
+                                </div>
+                                <!-- Avatar Contact and Info -->
                                 <img class="icon-size rounded-circle me-2" :src="contact.avatar" :alt="contact.name">
                                 <div class="d-flex flex-column justify-content-center">
                                     <div class="fw-medium">{{contact.name}}</div>
